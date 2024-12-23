@@ -109,12 +109,8 @@
                                 </div>
                             </div>
                             <div class="product__details__cart__option">
-                                <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="1">
-                                    </div>
-                                </div>
-                                <a href="#" class="primary-btn">add to cart</a>
+                                <a href="#" id="add-cart" class="primary-btn">add to cart</a>
+             
                             </div>
                            
                             <div class="product__details__last__option">
@@ -184,4 +180,41 @@
         </div>
     </section>
     <!-- Related Section End -->
+
+    <script>
+        function getCSRFToken() {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            return csrfToken;
+        }
+    
+        const item = document.getElementById("add-cart");
+        item.addEventListener("click", () => {
+            // Send the product ID to the backend when the "Add to Cart" button is clicked
+            fetch('/cart/add/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken(),  // Fix the CSRF token header
+                },
+                body: JSON.stringify({
+                    'product_id': {{ product.id|escapejs }},
+                }),
+            })
+            .then(response => response.json())  // Corrected 'response' variable name
+            .then(data => {
+                // Update cart count dynamically
+                const count = data.count;  // Assuming your backend returns a 'count' key in the JSON
+                const cartCountElement = document.getElementById("cart-count");  // Ensure this element exists
+                if (cartCountElement) {
+                    cartCountElement.textContent = count;  // Update the count in the cart display
+                }
+            })
+            .catch(error => {
+                console.error('Error adding to cart:', error);
+            });
+        });
+    
+    </script>
 {% endblock base %}
+
+
