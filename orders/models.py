@@ -17,3 +17,15 @@ class OrderItem(models.Model):
     quantity = models.PositiveBigIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     
+    @property
+    def total(self):
+        return self.quantity * self.price
+
+class ShippingAddress(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    address = models.CharField(max_length=200)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    zip_code = models.CharField(max_length=10)
+    country = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
