@@ -69,7 +69,8 @@
                                 <i class="fa fa-star-o"></i>
                                 <span> - 5 Reviews</span>
                             </div>
-                            <h3>${{ product.price }} <span>8{ product.price }}</span></h3>
+                            <h3>${{  product.price }}</h3>
+                            <!-- <h3>${{ product.price }} <span>{{ product.price }}</span></h3> -->
                             <p>Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable
                                 cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening
                             with placket.</p>
@@ -87,24 +88,6 @@
                                     </label>
                                     <label for="sm">s
                                         <input type="radio" id="sm">
-                                    </label>
-                                </div>
-                                <div class="product__details__option__color">
-                                    <span>Color:</span>
-                                    <label class="c-1" for="sp-1">
-                                        <input type="radio" id="sp-1">
-                                    </label>
-                                    <label class="c-2" for="sp-2">
-                                        <input type="radio" id="sp-2">
-                                    </label>
-                                    <label class="c-3" for="sp-3">
-                                        <input type="radio" id="sp-3">
-                                    </label>
-                                    <label class="c-4" for="sp-4">
-                                        <input type="radio" id="sp-4">
-                                    </label>
-                                    <label class="c-9" for="sp-9">
-                                        <input type="radio" id="sp-9">
                                     </label>
                                 </div>
                             </div>
@@ -140,7 +123,7 @@
             <div class="row">
                 {% for category in categories %}
                 <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
-                    <a href="{% url 'product'  product.id  %}">
+                    <a href="{% url 'product'  category.id  %}">
 
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="{{ category.image.url }}">
@@ -181,40 +164,6 @@
     </section>
     <!-- Related Section End -->
 
-    <script>
-        function getCSRFToken() {
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            return csrfToken;
-        }
-    
-        const item = document.getElementById("add-cart");
-        item.addEventListener("click", () => {
-            // Send the product ID to the backend when the "Add to Cart" button is clicked
-            fetch('/cart/add/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCSRFToken(),  // Fix the CSRF token header
-                },
-                body: JSON.stringify({
-                    'product_id': {{ product.id|escapejs }},
-                }),
-            })
-            .then(response => response.json())  // Corrected 'response' variable name
-            .then(data => {
-                // Update cart count dynamically
-                const count = data.count;  // Assuming your backend returns a 'count' key in the JSON
-                const cartCountElement = document.getElementById("cart-count");  // Ensure this element exists
-                if (cartCountElement) {
-                    cartCountElement.textContent = count;  // Update the count in the cart display
-                }
-            })
-            .catch(error => {
-                console.error('Error adding to cart:', error);
-            });
-        });
-    
-    </script>
 {% endblock base %}
 
 
