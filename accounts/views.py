@@ -3,15 +3,18 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
-def register(request):
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Account created successfully!")
-            return redirect("login")  # Replace 'login' with your login URL name
-    else:
-        form = UserCreationForm()
-    return render(request, "signup.html", {"form": form})
+def signin(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            return render(request, 'login.html', {"error": "Invalid email or password"})
+    return render(request, 'login.html')

@@ -2,13 +2,18 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
 from products.models import Product
+from django.db.models import Case, When
 
 # Create your views here.
 from products.models import Category
 
 def cart(request):
     cart = request.session.get('cart', {})
-    items = Product.objects.filter(id__in=cart)
+    items = Product.objects.filter(id__in=cart.values()).order_by(
+        Case(*[When(id=id, then=pos) for pos, id in enumerate(cart)])
+    )
+    items = zip(cart.values(), items)
+    print(items)
 
     return render(request, 'cart/shopping-cart.html',  {'cart': cart, 'items': items})
 
@@ -53,13 +58,9 @@ def add_to_cart(request):
 def remove_from_cart(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-    product_id = data.get('product_id')
-    del request.session['cart'][str(product_id)]
+        product_id = data.get('product_id')
+        del request.session['cart'][str(product_id)]
 
-def cart_view(request):
-    cart = request.session.get('cart', {})
-    items = Product.objects.filter(id__in=cart)
-    return render(request, 'cart.html', {'cart': cart, 'items': items})
 
 def clear_cart(request):
     if 'cart' in request.session:

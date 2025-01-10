@@ -23,18 +23,18 @@
                                 <tr>
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
-                                            <img src="{{ item.image.url }}" alt="">
+                                            <img src="{{ item.1.image.url }}" alt="">
                                         </div>
                                         <div class="product__cart__item__text">
-                                            <h6>{{ item.name }}</h6>
-                                            <h5>${{ item.price }}</h5>
+                                            <h6>{{ item.1.name }}</h6>
+                                            <h5>${{ item.1.price }}</h5>
                                         </div>
                                     </td>
                                     <td class="quantity__item">
                                         <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input type="text" value="1">
-                                            </div>
+                                            <button class="decrement-btn" data-id="{{ item.1.id }}">-</button>
+                                            <input class="clear" type="text" value="{{ item.0 }}" readonly>
+                                            <button class="increment-btn" data-id="{{ item.1.id }}">+</button>
                                         </div>
                                     </td>
                                     <td class="cart__price">$ 30.00</td>
@@ -55,13 +55,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="cart__discount">
-                        <h6>Discount codes</h6>
-                        <form action="#">
-                            <input type="text" placeholder="Coupon code">
-                            <button type="submit">Apply</button>
-                        </form>
-                    </div>
+                  
                     <div class="cart__total">
                         <h6>Cart total</h6>
                         <ul>
@@ -75,6 +69,18 @@
         </div>
     </section>
     <!-- Shopping Cart Section End -->
+
+    <script>
+
+        const items = document.getElementsByClassName("clear");
+        items.forEach(item => {
+            item.addEventListener("click", function() {
+                const id = item.getAttribute('data-id');
+                
+            });
+        });
+
+    </script>
 
     <!-- Footer Section Begin -->
 {% endblock base %}
