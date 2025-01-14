@@ -9,11 +9,10 @@ from products.models import Category
 
 def cart(request):
     cart = request.session.get('cart', {})
-    items = Product.objects.filter(id__in=cart.values()).order_by(
+    items = Product.objects.filter(id__in=cart.keys()).order_by(
         Case(*[When(id=id, then=pos) for pos, id in enumerate(cart)])
     )
     items = zip(cart.values(), items)
-    print(items)
 
     return render(request, 'cart/shopping-cart.html',  {'cart': cart, 'items': items})
 

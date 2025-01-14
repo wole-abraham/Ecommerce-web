@@ -17,13 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-
+from rest_framework.routers import DefaultRouter
+from api import views as api_views
 
 from django.urls import path, include
 from products import views
 
+
+router = DefaultRouter()
+router.register(r'categories', api_views.CategoryViewSet)
+router.register(r'products', api_views.ProductViewSet)
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
     path('', views.index, name='index'),
     path('cart/', include('cart.urls'), name='cart'),
     path('accounts/', include('accounts.urls'), name='accounts'),
