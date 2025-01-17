@@ -27,4 +27,4 @@ An eCommerce web application built with Django. This project allows users to bro
 2. Create a virtual environment:
    ```python3 -m venv env
    source env/bin/activate   # For Linux/macOS
-   env\Scripts\activate 
+   env\Scripts\activate ```
