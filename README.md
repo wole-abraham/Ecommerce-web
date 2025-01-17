@@ -25,6 +25,15 @@ An eCommerce web application built with Django. This project allows users to bro
    git clone https://github.com/wole-abraham/ecommerce-web.git
    cd ecommerce-web
 2. Create a virtual environment:
-   ```python3 -m venv env
+   ```
+   python3 -m venv env
    source env/bin/activate   # For Linux/macOS
-   env\Scripts\activate ```
+   env\Scripts\activate # for Windows
+   
+3. pip install -r requirements.txt
+4. Run the development server
+   ```
+   python3 manage.py runserver 5000
+5. Open your browser (http://127.0.0.1:5000)
+
+   
