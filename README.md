@@ -30,10 +30,13 @@ An eCommerce web application built with Django. This project allows users to bro
    source env/bin/activate   # For Linux/macOS
    env\Scripts\activate # for Windows
    
-3. pip install -r requirements.txt
-4. Run the development server
+3. Install dependencies
+   ```
+   pip install -r requirements.txt
+   
+5. Run the development server
    ```
    python3 manage.py runserver 5000
-5. Open your browser (http://127.0.0.1:5000)
+6. Open your browser (http://127.0.0.1:5000)
 
    
