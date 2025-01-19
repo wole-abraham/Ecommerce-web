@@ -52,6 +52,6 @@ class ProductViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post', 'get'])
     def options(self, request, pk=None):
         """Returns an empty list for product options."""
-        return Response([])
+        return Response([{'code': pk, 'name':'hoodie', 'values': []}])
 
         
