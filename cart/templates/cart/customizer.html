@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<div class="container">
+
+<div id="zakeke-container">
+
+</div>
+
+</div>
+
+
+
+<script src="https://portal.zakeke.com/scripts/integration/apiV2/customizer.js"></script>
+
+<script>
+
+    let customizer = new ZakekeDesigner();
+    
+
+    function getProductInfo(zakekeData) {
+    console.log("getProductInfo called with:", zakekeData);
+    // Return static price and stock status
+    return {
+        price: 49.99, // Example price
+        isOutOfStock: false // Product is in stock
+    };
+}
+
+function getProductPrice(zakekeData) {
+    console.log("getProductPrice called with:", zakekeData);
+    // Return static price
+    return {
+        price: 49.99, // Example price
+        isOutOfStock: false
+    };
+}
+
+function getProductAttribute(zakekeData) {
+    console.log("getProductAttribute called with:", zakekeData);
+    // Return static attributes
+    return {
+    "attributes": [
+        {
+            // Size attribute
+            code: "1",
+            label: "Size",
+            values: [
+                {
+                    code: "m",
+                    label: "M"
+                },
+                {
+                    code: "s",
+                    label: "S"
+                }
+            ]
+        },
+        {
+            // Color attribute
+            code: "2",
+            label: "Color",
+            values: [
+                {
+                    code: "blue",
+                    label: "Blue"
+                },
+                {
+                    code: "green",
+                    label: "Green"
+                }
+            ]
+        }
+    ],
+    variants: [
+        [
+            // Variant 1 (Size: M, Color: Yellow)
+            {
+                code: "1",
+                value: {
+                    code: "m"
+                }
+            },
+            {
+                code: "2",
+                value: {
+                    code: "blue"
+                }
+            },
+
+        ],
+        [
+            // Variant 2 (Size: M, Color: Red)
+            {
+               code: "1",
+               value: {
+                    code: "s"
+                }
+            },
+            {
+               code: "2",
+               value: {
+                    code: "green"
+                }
+            }
+        ],
+        // ...
+        // ...
+    ]
+}
+}
+
+function addToCart(productData) {
+    console.log("addToCart called with:", productData);
+    // Simulate adding product to cart
+    alert("Product added to cart!");
+    return true; // Indicate success
+}
+
+function editAddToCart(productData) {
+    console.log("editAddToCart called with:", productData);
+    // Simulate editing a product in the cart
+    alert("Product updated in the cart!");
+    return true; // Indicate success
+}
+
+function getSharedDesign(designData) {
+    console.log("getSharedDesign called with:", designData);
+    // Return a mock shared design URL
+    return "http://your.store.com/shared-design-id";
+}
+
+function getSaveDesign(designData) {
+  return {
+    designId: designData.designId
+  }
+}
+
+function addToCartNameAndNumber(zakeke){
+    return window.locatiion.href = "http://your.store.com/cart";
+}
+function editAddToCartNameAndNumber(zakeke){
+    return window.locatiion.href = "http://your.store.com/cart";
+
+}
+function editAddToCartBulk(zakeke){
+    return window.locatiion.href = "http://your.store.com/cart";
+}
+function addToCartBulk(zakeke){
+    return window.locatiion.href = "http://your.store.com/cart";
+}
+function onBackClicked() {
+    console.log("Back button clicked");
+    // Simulate navigating back
+    alert("Navigating back!");
+}
+    //Create config object
+    var config = {
+    tokenOauth: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiU2VsbGVyIiwiUGVybUJpdHMiOiIwMTAwMTExMDAxMTAwMTExMTExMTAxIiwidW5pcXVlX25hbWUiOiJ3b2xlMTcwMkBnbWFpbC5jb20iLCJVc2VySUQiOiIyNzExMDQiLCJVc2VyTmFtZSI6IndvbGUxNzAyQGdtYWlsLmNvbSIsInNhbGVzQ2hhbm5lbElEIjoiMSIsImVtYWlsIjoid29sZTE3MDJAZ21haWwuY29tIiwiVXNlclR5cGVJRCI6IjMiLCJJc3N1ZURhdGUiOiIxOC0wMS0yMDI1IDIzLTQ2LTU0WiIsIlVzZXJWZXJzaW9uIjoiMjAyNTAxMTgxMTE5NTQiLCJhY2Nlc3NUeXBlIjoiUzJTIiwiY2xpZW50SUQiOiIyOTA4NDUiLCJuYmYiOjE3MzcyNDQwMTQsImV4cCI6MTczNzMzMDQxNCwiaWF0IjoxNzM3MjQ0MDE0LCJpc3MiOiJ3d3cuemFrZWtlLmNvbSIsImF1ZCI6Imh0dHBzOi8vd3d3Lnpha2VrZS5jb20ifQ.Ei5YNqbAQG8XjTZnK10lqkzg-yi4jNRhKKn1GqOkZT8",
+
+    // Product configuration
+    productId: '3',
+    productName: "Name product",
+    getProductInfo: getProductInfo,
+    getProductPrice: getProductPrice,
+    getProductAttribute:getProductAttribute,
+    // Add to cart
+    cartButtonText: "Add To Cart",
+    addToCart: addToCart,
+    editAddToCart: editAddToCart,
+    // Name and numbers (add to cart and edit product)
+    isNamesAndNumbers: false,
+    addToCartNameAndNumber: addToCartNameAndNumber,
+    editAddToCartNameAndNumber: editAddToCartNameAndNumber,
+    // Bulk variations purchase (add to cart end edit product)
+    isMultipleVariations: true,
+    addToCartBulk: addToCartBulk,
+    editAddToCartBulk: editAddToCartBulk,
+    isBulkIndividualFile: true,
+    // Share design 
+    isSharedDesignUrl: true,
+    getSharedDesign: getSharedDesign,
+    ShareUrlPrefix: "http://your.store.com/",
+    // Save design
+    isSaveDesign: true,
+    getSaveDesign: getSaveDesign,
+    //--
+    onBackClicked: onBackClicked,
+    //--
+    designId: "",
+    hideVariants: true,
+    inventoryManagement: false,
+    priceTaxIncluded: false,
+    isClientPreviewsEnabled: true,
+    mobileVersion: false,
+    culture: "it-IT",
+    currency: "EUR",
+    loadTemplateId: "",
+    labelTax: "hidden",
+    quantity: 1,
+    selectedAttributes:
+    {
+        "attributekey1": "selectedattributevalue1",
+        //...//
+        "attributekeyn": "selectedattributevaluen"
+    },
+    sides: ["codeSide1", "codeSiden"],
+    additionalData: {}
+};
+    
+    //Create Iframe
+    customizer.createIframe(config);
+    
+    </script>
+</body>
+</html>

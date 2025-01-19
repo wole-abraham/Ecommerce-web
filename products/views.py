@@ -4,20 +4,13 @@ from django.http import JsonResponse
 
 # Create your views here.
 
-def index(request):
-    """
-        Main Page View
-        product: retrieves all products from the database
-    """
-    product = Product.objects.all()
-    return render(request, 'base/base.html', context={'products': product})
-
 
 def search(request, product):
     product = Product.objects.filter(name__icontains=product)
     categories = Category.objects.all()
 
     return render(request, 'shop.html', context={'products': product, 'categories': categories})
+
 
 def shop(request):
     if request.method == 'POST':
@@ -28,6 +21,21 @@ def shop(request):
     product = Product.objects.all()
     categories = Category.objects.all()
     return render(request, 'shop.html', context={'products': product, 'categories': categories})
+
+def index(request):
+    """
+        Main Page View
+        product: retrieves all products from the database
+    """
+    if request.method == 'POST':
+        return shop(request)
+    
+    product = Product.objects.all()
+    return render(request, 'base/base.html', context={'products': product})
+
+
+
+
 
 def product_detail(request, id):
     """
@@ -45,3 +53,7 @@ def get_products(request):
     products = Product.objects.all()
     data = [product.to_dict() for product in products]
     return JsonResponse(data, safe=False)
+
+
+def customizer(request):
+    return render(request, 'cart/customizer.html')

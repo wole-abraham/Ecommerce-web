@@ -81,17 +81,9 @@
                         <ul>
                             <li class="active"><a href="{% url 'index' %}">Home</a></li>
                             <li><a href="{% url 'shop' %}">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="./about.html">About Us</a></li>
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
+>
                         
-                            <li><a href="./contact.html">Contacts</a></li>
+                            <li><a href="#">Contacts</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -118,10 +110,9 @@
                     <div class="row">
                         <div class="col-xl-5 col-lg-7 col-md-8">
                             <div class="hero__text">
-                                <h6>Sport Collection</h6>
-                                <h2>Fall - Winter Collections 2030</h2>
-                                <p>A specialist label creating luxury essentials. Ethically crafted with an unwavering
-                                commitment to exceptional quality.</p>
+                                <h6>Collection</h6>
+                                <h2>New Year Collection</h2>
+                               
                                 <a href="{% url 'shop' %}" class="primary-btn">Shop now <span class="arrow_right"></span></a>
                                 <div class="hero__social">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
@@ -243,8 +234,9 @@
     <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">
             <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
+            <form class="search-model-form" action="#" method="post">
+                {% csrf_token %}
+                <input type="text" name="search" placeholder="Search...">
             </form>
         </div>
     </div>

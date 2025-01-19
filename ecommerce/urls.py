@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from api import views as api_views
+from products.views import customizer
 
 from django.urls import path, include
 from products import views
@@ -30,6 +31,8 @@ router.register(r'products', api_views.ProductViewSet)
 
 
 urlpatterns = [
+    
+    path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('', views.index, name='index'),
@@ -37,6 +40,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls'), name='accounts'),
     path('product/<int:id>/', views.product_detail, name='product'),
     path('shop/', views.shop, name='shop'),
+    path('customizer/', customizer, name='customizer'),
 ]
 
 

@@ -6,9 +6,19 @@ from orders.models import Order, OrderItem
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    code = serializers.SerializerMethodField()
+    thumbnail = serializers.SerializerMethodField()
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['code', 'name', 'description', 'price', 'category', 'image', 'stock', 'thumbnail']
+
+    def get_code(self, obj):
+        return str(obj.id)
+    
+    def get_thumbnail(self, obj):
+        request = self.context.get('request')
+        thumbnail = obj.image.url
+        return request.build_absolute_uri(thumbnail)
 
 class CategoySerializer(serializers.ModelSerializer):
     class Meta:

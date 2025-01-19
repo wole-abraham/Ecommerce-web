@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'orders',
     'payments',
     'analytics',
+
 ]
 
 MIDDLEWARE = [
@@ -81,6 +83,13 @@ REST_FRAMEWORK = {
         'PAGE_SIZE': 4,
         'DEFAULT_FILTER_BACKENDS': ['rest_framework.filters.SearchFilter',
                                     'rest_framework.filters.OrderingFilter'],
+        'DEFAULT_AUTHENTICATION_CLASSES': [
+            'rest_framework.authentication.BasicAuthentication',
+        ],
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.IsAuthenticated',
+        ]
+
 }
 
 
@@ -130,7 +139,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -143,3 +152,43 @@ MEDIA_URL = '/images/'
 MEDIA_ROOT = BASE_DIR
 
 LOGIN_REDIRECT_URL = '/'
+
+from dotenv import load_dotenv
+load_dotenv()
+import os 
+
+CLIENT_ID = os.getenv('CLIENT_ID')
+CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+ACCESS_TYPE = 'C2S'
+VISITOR_CODE = ''
+CUSTOMER_CODE = ''
+
+def token():
+    import requests
+    url = 'https://api.zakeke.com/token'
+    header = {'Content-Type': 'application/x-www-form-urlencoded'}
+    data = {
+        'grant_type': 'client_credentials',
+        'access_type': ACCESS_TYPE,
+        'client_id':CLIENT_ID,
+        'client_secret': CLIENT_SECRET
+        }
+    re = requests.post(url, headers=header, data=data)
+    return re.json()['access_token']
+
+
+
+ZAKEKE_API_TOKEN = token()
+
+
+def s2s():
+    import requests
+    from requests.auth import HTTPBasicAuth
+    url = 'https://api.zakeke.com/token'
+    header = {'Accept':'application/json',
+              'Content-Type': 'application/x-www-form-urlencoded'}
+    data = {'grant_type': 'client_credentials', 'access_type': 'S2S'}
+    re = requests.post(url, headers=header, data=data, auth=HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET))
+    return re.json()['access_token']
+
+              

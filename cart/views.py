@@ -11,10 +11,15 @@ def cart(request):
     cart = request.session.get('cart', {})
     items = Product.objects.filter(id__in=cart.keys()).order_by(
         Case(*[When(id=id, then=pos) for pos, id in enumerate(cart)])
-    )
-    items = zip(cart.values(), items)
 
-    return render(request, 'cart/shopping-cart.html',  {'cart': cart, 'items': items})
+    )
+
+    items = list(zip(cart.values(), items))
+    price = [x * i.price for x, i in items]
+    total = sum(price)
+
+
+    return render(request, 'cart/shopping-cart.html',  {'cart': cart, 'items': items, 'price': 1, 'total':total} )
 
 
 
