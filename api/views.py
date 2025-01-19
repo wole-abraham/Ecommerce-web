@@ -43,3 +43,7 @@ class ProductViewSet(viewsets.ModelViewSet):
                 return Response({"error": "Product not found."}, status=status.HTTP_404_NOT_FOUND)
                 
         
+    @action(detail=True, methods=['post', 'get'])
+    def options(self, request, pk=None):
+        return Response([])
+        
