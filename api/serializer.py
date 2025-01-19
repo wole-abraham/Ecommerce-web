@@ -10,7 +10,7 @@ class ProductSerializer(serializers.ModelSerializer):
     thumbnail = serializers.SerializerMethodField()
     class Meta:
         model = Product
-        fields = ['code', 'name', 'description', 'price', 'category', 'image', 'stock', 'thumbnail']
+        fields = ['code', 'name', 'description', 'price', 'category', 'image', 'stock', 'thumbnail', 'customizable']
 
     def get_code(self, obj):
         return str(obj.id)
