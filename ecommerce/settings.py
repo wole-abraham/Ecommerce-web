@@ -163,32 +163,32 @@ ACCESS_TYPE = 'C2S'
 VISITOR_CODE = ''
 CUSTOMER_CODE = ''
 
-def token():
-    import requests
-    url = 'https://api.zakeke.com/token'
-    header = {'Content-Type': 'application/x-www-form-urlencoded'}
-    data = {
-        'grant_type': 'client_credentials',
-        'access_type': ACCESS_TYPE,
-        'client_id':CLIENT_ID,
-        'client_secret': CLIENT_SECRET
-        }
-    re = requests.post(url, headers=header, data=data)
-    return re.json()['access_token']
+# def token():
+#     import requests
+#     url = 'https://api.zakeke.com/token'
+#     header = {'Content-Type': 'application/x-www-form-urlencoded'}
+#     data = {
+#         'grant_type': 'client_credentials',
+#         'access_type': ACCESS_TYPE,
+#         'client_id':CLIENT_ID,
+#         'client_secret': CLIENT_SECRET
+#         }
+#     re = requests.post(url, headers=header, data=data)
+#     return re.json()['access_token']
 
 
 
-ZAKEKE_API_TOKEN = token()
+# ZAKEKE_API_TOKEN = token()
 
 
-def s2s():
-    import requests
-    from requests.auth import HTTPBasicAuth
-    url = 'https://api.zakeke.com/token'
-    header = {'Accept':'application/json',
-              'Content-Type': 'application/x-www-form-urlencoded'}
-    data = {'grant_type': 'client_credentials', 'access_type': 'S2S'}
-    re = requests.post(url, headers=header, data=data, auth=HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET))
-    return re.json()['access_token']
+# def s2s():
+#     import requests
+#     from requests.auth import HTTPBasicAuth
+#     url = 'https://api.zakeke.com/token'
+#     header = {'Accept':'application/json',
+#               'Content-Type': 'application/x-www-form-urlencoded'}
+#     data = {'grant_type': 'client_credentials', 'access_type': 'S2S'}
+#     re = requests.post(url, headers=header, data=data, auth=HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET))
+#     return re.json()['access_token']
 
               
