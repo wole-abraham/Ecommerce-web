@@ -30,7 +30,7 @@ def index(request):
     if request.method == 'POST':
         return shop(request)
     
-    product = Product.objects.all()
+    product = Product.objects.all().order_by('-id')
     return render(request, 'base/base.html', context={'products': product})
 
 
