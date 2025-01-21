@@ -33,11 +33,11 @@
                                     <td class="quantity__item">
                                         <div class="quantity">
                                             <button class="decrement-btn" data-id="{{ item.1.id }}">-</button>
-                                            <input class="clear" type="text" value="{{ item.0 }}" readonly>
+                                            <input class="clear" type="text" value="{{ item.0 }}" >
                                             <button class="increment-btn" data-id="{{ item.1.id }}">+</button>
                                         </div>
                                     </td>
-                                    <td class="cart__price">${{price}}</td>
+                                    <td class="cart__price">${{item.1.price}}</td>
                                     <td class="cart__close"><i class="fa fa-close"></i></td>
                                 </tr>
                         
@@ -71,16 +71,73 @@
 
     <script>
 
-        const items = document.getElementsByClassName("clear");
-        items.forEach(item => {
-            item.addEventListener("click", function() {
-                const id = item.getAttribute('data-id');
-                
-            });
-        const price = document.getElementsByClassName("price__value");
-        const total = document.getElementsByClassName("cart__price");
-        total.textContent = '400';
+document.addEventListener("DOMContentLoaded", () => {
+    // Get all increment and decrement buttons
+    const decrementButtons = Array.from(document.getElementsByClassName("decrement-btn"));
+    const incrementButtons = Array.from(document.getElementsByClassName("increment-btn"));
+
+    decrementButtons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+            // Get the parent row for the clicked button
+            const row = button.closest("tr");
+
+            // Find the quantity input in the same row
+            const quantityInput = row.querySelector(".clear");
+
+            // Decrease the value if it's greater than 1
+            if (parseInt(quantityInput.value) > 1) {
+                quantityInput.value = parseInt(quantityInput.value) - 1;
+
+               
+                const price = parseFloat(row.querySelector(".product__cart__item__text h5").innerText.replace("$", ""));
+                const totalPriceElement = row.querySelector(".cart__price");
+                totalPriceElement.innerText = `$${(price * quantityInput.value).toFixed(2)}`;
+
+                // Update the cart total (if applicable)
+                updateCartTotal();
+            }
         });
+    });
+
+    incrementButtons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+            // Get the parent row for the clicked button
+            const row = button.closest("tr");
+
+            // Find the quantity input in the same row
+            const quantityInput = row.querySelector(".clear");
+
+            // Increase the value
+            quantityInput.value = parseInt(quantityInput.value) + 1;
+
+            // Optionally, update total price for this row
+            const price = parseFloat(row.querySelector(".product__cart__item__text h5").innerText.replace("$", ""));
+            const totalPriceElement = row.querySelector(".cart__price");
+            totalPriceElement.innerText = `$${(price * quantityInput.value).toFixed(2)}`;
+
+            // Update the cart total (if applicable)
+            updateCartTotal();
+        });
+    });
+
+    // Function to update the overall cart total
+    function updateCartTotal() {
+        const rows = Array.from(document.querySelectorAll("tbody tr"));
+        let total = 0;
+
+        rows.forEach((row) => {
+            const priceElement = row.querySelector(".cart__price");
+            const rowTotal = parseFloat(priceElement.innerText.replace("$", ""));
+            total += rowTotal;
+        });
+
+        const totalValueElement = document.querySelector(".Total_value");
+        if (totalValueElement) {
+            totalValueElement.innerText = `$${total.toFixed(2)}`;
+        }
+    }
+});
+
 
     </script>
 

@@ -47,7 +47,6 @@ def product_detail(request, id):
     category = Product.objects.filter(category=product.category)
     return render(request, 'shop-details.html', context={'product': product, 'categories': category})
 
-# API
 
 def get_products(request):
     products = Product.objects.all()

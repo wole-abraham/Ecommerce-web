@@ -44,5 +44,5 @@ urlpatterns = [
 ]
 
 
-if settings.DEBUG:  # Only use this for development
+if settings.DEBUG:  # if debug is True files wonr be served
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
