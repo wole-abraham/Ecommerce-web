@@ -1,13 +1,12 @@
 # eCommerce Using Django
 
-An eCommerce web application built with Django. This project allows users to browse products, add items to their shopping cart, and includes session-based cart management.
+An Minimal eCommerce web application built with Django. This project allows users to browse products, add items to their shopping cart, and includes session-based cart management.
 
 ## Features
 
 - **Product Browsing**: Users can view a list of available products with images and prices.
+- **Product Search**: Users can search for a product and get results
 - **Shopping Cart**: Session-based cart management to add, update, and remove items.
-- **Checkout (Doesn't work)**: Displays the cart total and prepares the user for the checkout process.
-- **Responsive Design (barely)**: Frontend designed for usability on both desktop and mobile devices.
 - **Custom Pricing Logic**: Calculates item and total prices dynamically.
 
 ## Technologies Used
@@ -33,10 +32,98 @@ An eCommerce web application built with Django. This project allows users to bro
 3. Install dependencies
    ```
    pip install -r requirements.txt
+
+4. Initialize the database and Make Migrations
+   ```
+   python3 manage.py makemigrations
+   python3 manage.py migrate
+
+5. Create Admin Account
+   ```
+   Python3 manage.py createsuperuser
    
-5. Run the development server
+6. Run the development server
    ```
    python3 manage.py runserver 5000
-6. Open your browser (http://127.0.0.1:5000)
-
    
+7. visit the site (http:127.0.0.1:5000)
+   
+7. Visit the Admin page to manage products(http:127.0.0.1:5000/admin)
+   
+
+   ## API DOCUMENTATION
+   The API is built to accomodate the intergration of zakeke's UI       Customizer
+   ## Endpoints
+   **Before using the api, an account creation is needed**
+   **The Api enforces Basic Auth(username and password is required)**
+   
+
+                                             | Method    | Endpoint                         | Description                     |
+                                             |-----------|----------------------------------|---------------------------------|
+                                             | GET       | `/api/products/`                 | Retrieve all products.          |
+                                             | POST      | `/api/products/`                 | Add a new product.              |
+                                             | GET       | `/api/products/<id>`             | Retrieve details of a product.  |
+                                             | PUT       | `/api/products/<id>`             | Update a specific product.      |
+                                             | DELETE    | `/api/products/<id>`             | Delete a specific product.      |
+                                             | POST      | `/api/product/<id>/customizer`   | Marks a product as customizable|
+   ### **Retrieve All Products **
+   - **URL**: `/api/products/`
+   - **METHOD**: `GET`
+   - **DESCRIPTION**: Fetches all Products.
+   - **Response**:
+     ```[ {
+        "values": [],
+        "code": "12",
+        "name": "Polo Shirt",
+        "description": "This is T-shirt",
+        "price": "150.00",
+        "category": Fashion,
+        "image": "http://127.0.0.1:5000/images/images/Adult_Polo_Shirt.jpg",
+        "stock": 2,
+        "thumbnail": "http://127.0.0.1:5000/images/images/Adult_Polo_Shirt.jpg",
+        "customizable": true
+    }]
+   ```
+- **Code**: The product Id
+- **name**: Product name
+- **decscription**: Product description
+- **image**: Absolute url of the image stored on the server
+  
+### **Update a Product**
+- **URL**: `/api/products/<id>/`
+- **Method**: `PUT`
+- **Description**: Updates details of a specific product.
+- **Request Payload**:
+    ```json
+    {
+      "name": "Updated Product",
+      "price": 40.00,
+      "description": "Updated description"
+    }
+    ```
+- **Response**:
+    ```json
+    {
+      "id": 1,
+      "name": "Updated Product",
+      "price": 40.00,
+      "description": "Updated description"
+    }
+    ```
+
+---
+
+---
+
+### **Delete a Product**
+- **URL**: `/api/products/<id>/`
+- **Method**: `DELETE`
+- **Description**: Deletes a specific product.
+- **Response**:
+    ```json
+    {
+      "message": "Product deleted successfully"
+    }
+    ```
+
+---
