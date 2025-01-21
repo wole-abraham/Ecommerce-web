@@ -71,6 +71,11 @@ The API facilitates the integration of Zakeke's UI Customizer and supports basic
 - **Authentication Method**: Basic Auth (username and password).
 
 ---
+### API in Broswer
+You use the api in broswer using the djangorestFramework for more convinience
+
+```http://127.0.0.1:8000/api/products ```
+
 
 ### API Endpoints
 
