@@ -7,6 +7,13 @@ from django.db.models import Case, When
 # Create your views here.
 from products.models import Category
 
+
+def clear_cart(request):
+    if 'cart' in request.session:
+        del request.session['cart']
+    return redirect('index')
+
+
 def cart(request):
     cart = request.session.get('cart', {})
     items = Product.objects.filter(id__in=cart.keys()).order_by(
@@ -66,7 +73,3 @@ def remove_from_cart(request):
         del request.session['cart'][str(product_id)]
 
 
-def clear_cart(request):
-    if 'cart' in request.session:
-        del request.session['cart']
-    return redirect('cart_view')

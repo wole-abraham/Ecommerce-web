@@ -13,11 +13,10 @@ from rest_framework.pagination import PageNumberPagination
 
 
 class CustomPagination(PageNumberPagination):
-    page_size = 10  # Set the default page size here
-    page_size_query_param = 'page_size'  # Optional: Let clients customize page size
+    page_size = 10
+    page_size_query_param = 'page_size'  
 
     def get_paginated_response(self, data):
-        # Return only the results without count, next, and previous
         return Response(data)
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -31,7 +30,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     # Enable search
     filter_backends = [filters.SearchFilter]
-    search_fields = ['name', 'description', 'category__name']
+    search_fields = ['name', 'description', 'category__name', 'id']
 
     @action(detail=True, methods=['post', 'delete'])
     def customizer(self, request, pk=None):
@@ -51,7 +50,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post', 'get'])
     def options(self, request, pk=None):
-        """Returns an empty list for product options."""
+        """ Returns an empty list for product options. """
         return Response([{'code': pk, 'name':'hoodie', 'values': []}])
 
         

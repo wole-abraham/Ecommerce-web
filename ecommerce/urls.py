@@ -40,7 +40,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls'), name='accounts'),
     path('product/<int:id>/', views.product_detail, name='product'),
     path('shop/', views.shop, name='shop'),
-    path('customizer/', customizer, name='customizer'),
+    path('customizer/<int:id>', customizer, name='customizer'),
 ]
 
 

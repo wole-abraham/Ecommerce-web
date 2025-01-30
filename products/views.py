@@ -54,5 +54,9 @@ def get_products(request):
     return JsonResponse(data, safe=False)
 
 
-def customizer(request):
-    return render(request, 'cart/customizer.html')
+def customizer(request, id):
+    """
+        Customizer View -> View to customize a product
+        product: retrieves a product from the database
+    """
+    return render(request, 'cart/customizer.html', context={'id':id})

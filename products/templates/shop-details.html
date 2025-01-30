@@ -63,9 +63,7 @@
                             <h4>{{ product.name }}</h4>
                             <h3>${{  product.price }}</h3>
                             <!-- <h3>${{ product.price }} <span>{{ product.price }}</span></h3> -->
-                            <p>Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable
-                                cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening
-                            with placket.</p>
+                            <p>{{ product.description }}</p>
                             <div class="product__details__option">
                                 <div class="product__details__option__size">
                                     <span>Size:</span>
@@ -87,10 +85,13 @@
                                 <a href="#" id="add-cart" class="primary-btn">add to cart</a>
              
                             </div>
+                            <div class="product__details__cart__option">
+                                <a href="{% url 'customizer' product.id %}" id="add-cart" class="primary-btn">Customize</a>
+             
+                            </div>
                            
                             <div class="product__details__last__option">
-                                <h5><span>Guaranteed Safe Checkout</span></h5>
-                                <img src="img/shop-details/details-payment.png" alt="">
+                                
                                 <ul>
                                     <li><span>Categories:</span> Clothes</li>
                                     <li><span>Tag:</span> {{ product.category }}</li>
@@ -148,7 +149,7 @@
             
         </div>
     </section>
-    <!-- Related Section End -->
+
 
 {% endblock base %}
 

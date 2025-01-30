@@ -30,6 +30,7 @@
 <script>
     let customizer = new ZakekeDesigner();
 
+    let data = {{ id | safe }};
     // Dummy product data
     function getProductInfo(zakekeData) {
         console.log('hi there')
@@ -68,7 +69,7 @@
     // Configuration object
     var config = {
         tokenOauth: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiU2VsbGVyIiwiUGVybUJpdHMiOiIwMTAwMTExMDAxMTAwMTExMTExMTAxIiwidW5pcXVlX25hbWUiOiJ3b2xlMTcwMkBnbWFpbC5jb20iLCJVc2VySUQiOiIyNzExMDQiLCJVc2VyTmFtZSI6IndvbGUxNzAyQGdtYWlsLmNvbSIsInNhbGVzQ2hhbm5lbElEIjoiMSIsImVtYWlsIjoid29sZTE3MDJAZ21haWwuY29tIiwiVXNlclR5cGVJRCI6IjMiLCJJc3N1ZURhdGUiOiIxOC0wMS0yMDI1IDIzLTQ2LTU0WiIsIlVzZXJWZXJzaW9uIjoiMjAyNTAxMTgxMTE5NTQiLCJhY2Nlc3NUeXBlIjoiUzJTIiwiY2xpZW50SUQiOiIyOTA4NDUiLCJuYmYiOjE3MzcyNDQwMTQsImV4cCI6MTczNzMzMDQxNCwiaWF0IjoxNzM3MjQ0MDE0LCJpc3MiOiJ3d3cuemFrZWtlLmNvbSIsImF1ZCI6Imh0dHBzOi8vd3d3Lnpha2VrZS5jb20ifQ.Ei5YNqbAQG8XjTZnK10lqkzg-yi4jNRhKKn1GqOkZT8", // Replace with a valid token
-        productId: '1',
+        productId: data,
         productName: "Name product",
         getProductInfo: getProductInfo,
         getProductPrice: getProductPrice,
