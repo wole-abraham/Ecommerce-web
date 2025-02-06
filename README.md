@@ -13,7 +13,7 @@ A minimal eCommerce web application built with Django. This project allows users
 
 - **Backend**: Django (Python)
 - **Frontend**: HTML, CSS, JavaScript
-- **Third-Party Service**: Zakeke UI for customizing products
+- **Third-Party Service**: Zakeke UI for customizing products (Removed) 
 - **Database**: SQLite
 - **Session Management**: Django sessions to store cart data
 
