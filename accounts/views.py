@@ -28,6 +28,7 @@ def signup(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
             return redirect('login')  # Redirect to the login page or homepage
-    else:
-        form = UserRegisterForm()
+        else:
+            print(form.errors)
+    form = UserRegisterForm()
     return render(request, 'signup.html', {'form': form})

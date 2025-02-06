@@ -19,25 +19,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for item in  items %}
+                                {% for item in  cart %}
                                 <tr>
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
-                                            <img src="{{ item.1.image.url }}" alt="">
+                                            <a href="{% url 'product' item.id %}"><img src="{{ item.image.url }}" alt=""></a>
                                         </div>
                                         <div class="product__cart__item__text">
-                                            <h6>{{ item.1.name }}</h6>
-                                            <h5>${{ item.1.price }}</h5>
+                                            <h6>{{ item.name }}</h6>
+                                            <h5>${{ item.price }}</h5>
                                         </div>
                                     </td>
                                     <td class="quantity__item">
-                                        <div class="quantity">
-                                            <button class="decrement-btn" data-id="{{ item.1.id }}">-</button>
-                                            <input class="clear" type="text" value="{{ item.0 }}" >
-                                            <button class="increment-btn" data-id="{{ item.1.id }}">+</button>
+                                        <div class="quantity" style="display: flex;">
+                                            <button class="decrement-btn" onclick="removeFromCart({{ item.id|escapejs }})" data-id="{{ item.id }}"> <  </button>
+                                            <span class="amount">2</span>
+                                            <button class="increment-btn" onclick="addtoCart({{ item.id|escapejs }})" data-id="{{ item.id }}">></button>
                                         </div>
                                     </td>
-                                    <td class="cart__price">${{item.1.price}}</td>
+                                    <td class="cart__price">${{item.price}}</td>
                                     <td class="cart__close"><i class="fa fa-close"></i></td>
                                 </tr>
                         
@@ -59,9 +59,9 @@
                     <div class="cart__total">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Total <span class="Total_value">$ {{total}}</span></li>
+                            <li>Total <span class="Total_value"></span></li>
                         </ul>
-                        <a href="#" class="primary-btn">Proceed to checkout</a>
+                        <a href="/checkout" class="primary-btn">Proceed to checkout</a>
                     </div>
                 </div>
             </div>
@@ -71,77 +71,92 @@
 
     <script>
 
+
+
 document.addEventListener("DOMContentLoaded", () => {
+
+  
     // Get all increment and decrement buttons
     const decrementButtons = Array.from(document.getElementsByClassName("decrement-btn"));
     const incrementButtons = Array.from(document.getElementsByClassName("increment-btn"));
-
+    updateCartTotal();
+    
+    
     decrementButtons.forEach((button) => {
         button.addEventListener("click", (e) => {
             // Get the parent row for the clicked button
             const row = button.closest("tr");
 
             // Find the quantity input in the same row
-            const quantityInput = row.querySelector(".clear");
+            // const quantityInput = row.querySelector(".clear");
 
-            // Decrease the value if it's greater than 1
-            if (parseInt(quantityInput.value) > 1) {
-                quantityInput.value = parseInt(quantityInput.value) - 1;
+            // // Decrease the value if it's greater than 1
+            // if (parseInt(quantityInput.value) > 1) {
+            //     quantityInput.value = parseInt(quantityInput.value) - 1;
 
                
-                const price = parseFloat(row.querySelector(".product__cart__item__text h5").innerText.replace("$", ""));
-                const totalPriceElement = row.querySelector(".cart__price");
-                totalPriceElement.innerText = `$${(price * quantityInput.value).toFixed(2)}`;
+            //     const price = parseFloat(row.querySelector(".product__cart__item__text h5").innerText.replace("$", ""));
+            //     const totalPriceElement = row.querySelector(".cart__price");
+        
 
-                // Update the cart total (if applicable)
-                updateCartTotal();
-            }
+            //     // Update the cart total (if applicable)
+                  
+            // }
+            updateCartTotal(); 
         });
     });
 
     incrementButtons.forEach((button) => {
         button.addEventListener("click", (e) => {
-            // Get the parent row for the clicked button
-            const row = button.closest("tr");
+            
+            // const row = button.closest("tr");
 
-            // Find the quantity input in the same row
-            const quantityInput = row.querySelector(".clear");
+            // // Find the quantity input in the same row
+            // const quantityInput = row.querySelector(".clear");
 
-            // Increase the value
-            quantityInput.value = parseInt(quantityInput.value) + 1;
+            // // Increase the value
+            // quantityInput.value = parseInt(quantityInput.value) + 1;
 
-            // Optionally, update total price for this row
-            const price = parseFloat(row.querySelector(".product__cart__item__text h5").innerText.replace("$", ""));
-            const totalPriceElement = row.querySelector(".cart__price");
-            totalPriceElement.innerText = `$${(price * quantityInput.value).toFixed(2)}`;
+            // // Optionally, update total price for this row
+            // const price = parseFloat(row.querySelector(".product__cart__item__text h5").innerText.replace("$", ""));
+            // const totalPriceElement = row.querySelector(".cart__price");
+          
 
-            // Update the cart total (if applicable)
+            
             updateCartTotal();
         });
     });
 
     // Function to update the overall cart total
     function updateCartTotal() {
-        const rows = Array.from(document.querySelectorAll("tbody tr"));
-        let total = 0;
-
-        rows.forEach((row) => {
-            const priceElement = row.querySelector(".cart__price");
-            const rowTotal = parseFloat(priceElement.innerText.replace("$", ""));
-            total += rowTotal;
-        });
+        console.log('Updating');
+        fetch('/cart/cart_total/')
+        .then(response => response.json())
+        .then(data => {
 
         const totalValueElement = document.querySelector(".Total_value");
+
         if (totalValueElement) {
-            totalValueElement.innerText = `$${total.toFixed(2)}`;
+            totalValueElement.innerText = `$${data.total}`;
         }
-    }
+            
+        })
+        fetch('/cart/count')
+            .then((response) => response.json())
+            .then((data) => {
+                const count = document.getElementsByClassName('cart-count');
+                console.log(data.count);
+            
+            for (let i = 0; i < count.length; i++){
+                count[i].textContent = data.count;
+            }
+            } )
+    };
+
+   
 });
 
-
     </script>
-
-    
 
     <!-- Footer Section Begin -->
 {% endblock base %}

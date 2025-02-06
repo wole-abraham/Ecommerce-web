@@ -27,7 +27,94 @@
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+
+    <style>
+        .shopping__cart__table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.shopping__cart__table th, .shopping__cart__table td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.product__cart__item {
+    display: flex;
+    align-items: center;
+}
+
+.product__cart__item__pic img {
+    width: 80px;
+    height: 80px;w
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+.quantity button:hover {
+    background-color: #555;
+}
+
+.primary-btn {
+    display: block;
+    text-align: center;
+    background-color: #ff4c4c;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.primary-btn:hover {
+    background-color: #cc0000;
+}
+
+.cart__total {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.cart__total h6 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.cart__total ul {
+    list-style: none;
+    padding: 0;
+}
+
+.cart__total ul li {
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+    </style>
 </head>
+
 
 <body>
     <!-- Offcanvas Menu Begin -->
@@ -46,8 +133,8 @@
         </div>
         <div class="offcanvas__nav__option">
             <a href="#" class="search-switch"><img src="{% static 'img/icon/search.png' %}" alt=""></a>
-            <a href="{% url 'cart' %}"><img src="{% static 'img/icon/cart.png' %}" alt="" style="width: 25px;"> <span class="cart-count" style="align-items: center;">0</span></a>
-            <div class="price">$0.00</div>
+            <a href="{% url 'cart' %}"><img src="{% static 'img/icon/cart.png' %}" alt="" style="width: 25px;"> <span class="cart-count" style="align-items: center;">  0</span></a>
+            
         </div>
         <div id="mobile-menu-wrap"></div>
        
@@ -81,7 +168,9 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="header__logo">
-                        <a href="{% url 'index' %}"><h2 style="font-family: 'Courier New', Courier, monospace;">Ecommerce</h2></a>
+                        <a href="{% url 'index' %}">
+                            <img src="https://i.ibb.co/NdwPYctH/iconirea.png" style="border-radius: 50%; width: 50px;"  alt="">
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -98,9 +187,7 @@
                 <div class="col-lg-3 col-md-3">
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><img src="{% static 'img/icon/search.png' %}" alt=""></a>
-                        <a href="#"><img src="{% static 'img/icon/heart.png' %}" alt=""></a>
                         <a href="{% url 'cart' %}"><img src="{% static 'img/icon/cart.png' %}" style="width: 25px;" alt=""> <span class="cart-count">0</span></a>
-                        <div class="price">$0.00</div>
                     </div>
                 </div>
             </div>
@@ -122,7 +209,7 @@
                                 <h2 style="color: antiquewhite;">Custom Designs</h2>
                                
                                 <a href="{% url 'shop' %}" class="primary-btn">Shop now </a>
-                                <span class="arrow_right"></span>
+                                
                                 <div class="hero__social">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter"></i></a>
@@ -142,7 +229,7 @@
                                 <h6 style="color: antiquewhite;">Customizing</h6>
                                 <h2>GoShopping</h2>
                                 <p style="color: antiquewhite;">GoShopping</p>
-                                <a href="#" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                                <a href="#" class="primary-btn">Shop now </a>
                                 <div class="hero__social">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter"></i></a>
@@ -212,7 +299,8 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <h2 style="color: beige;">Ecommerce</h2>
+                            <img src="https://i.ibb.co/NdwPYctH/iconirea.png" style="width: 50px; border-radius: 50%;"  alt="">
+                            <p>Iconic Realm</p>
                         </div>
                         <p>The customer is at the heart of our unique business model, which includes design.</p>
 
@@ -262,24 +350,94 @@
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
 
+
+
+    <script>
+
+        // function addtoCart(id){
+        //     console.log('added');
+        //     fetch(`/cart/add/${id}`)
+        //     .then(() =>{
+        //     updateCartTotal();
+        //     })
+        // };
+        function updateCartTotal() {
+        console.log('Updating');
+        fetch('/cart/cart_total/')
+        .then(response => response.json())
+        .then(data => {
+
+        const totalValueElement = document.querySelector(".Total_value");
+
+        if (totalValueElement) {
+            totalValueElement.innerText = `$${data.total}`;
+        }
+            
+        })
+
+        fetch('/cart/count')
+            .then((response) => response.json())
+            .then((data) => {
+                const count = document.getElementsByClassName('cart-count');
+                console.log(data.count);
+            
+            for (let i = 0; i < count.length; i++){
+                count[i].textContent = data.count;
+            }
+            } )
+    };
+
+   
+
+        function removeFromCart(id){
+            fetch(`/cart/remove/${id}`)
+            .then(() => {
+                updateCartTotal();
+            });
+            
+        };
+
+        function addtoCart(id){
+            console.log('added');
+            fetch(`/cart/add/${id}`)
+            .then(() =>{
+                console.log('calling');
+            updateCartTotal();
+            })
+        };
+
+
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             console.log('loaded');
-            // Your script here
-           fetch('/cart/add').then(data => data.json())
-           .then(data => {
-            const count = data.count;
-            const countElement = document.getElementsByClassName("cart-count");
-            if (countElement) {
-                    for (let i = 0; i < countElement.length; i++) {
-                        countElement[i].textContent = count;  // Update the count in the cart display
-                    }
+        //     // Your script here
+        //     const idd = {{product.id | escapejs }};
+        //     console.log(idd);
+        //    fetch(`/cart/add/${idd}`).then(data => data.json())
+        //    .then(data => {
+        //     const count = data.count;
+        //     const countElement = document.getElementsByClassName("cart-count");
+        //     if (countElement) {
+        //             for (let i = 0; i < countElement.length; i++) {
+        //                 countElement[i].textContent = count;  // Update the count in the cart display
+        //             }
                     
-                }
+        //         }
 
-           });
+        //    });
+        fetch('/cart/count')
+            .then((response) => response.json())
+            .then((data) => {
+                const count = document.getElementsByClassName('cart-count');
+                console.log(data.count);
+            
+            for (let i = 0; i < count.length; i++){
+                count[i].textContent = data.count;
+            }
+            } )
 
-        })
+         })
     
     </script>
 
@@ -292,32 +450,28 @@
         const item = document.getElementById("add-cart");
         item.addEventListener("click", () => {
             // Send the product ID to the backend when the "Add to Cart" button is clicked
-            fetch('/cart/add/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCSRFToken(),  // Fix the CSRF token header
-                },
-                body: JSON.stringify({
-                    'product_id': {{ product.id|escapejs }},
-                }),
-            })
-            .then(response => response.json())  // Corrected 'response' variable name
-            .then(data => {
-                // Update cart count dynamically
-                const count = data.count;  // Assuming your backend returns a 'count' key in the JSON
-                const cartCountElement = document.getElementsByClassName("cart-count");  // Ensure this element exists
-                if (cartCountElement) {
-                    for (let i = 0; i < cartCountElement.length; i++) {
-                        cartCountElement[i].textContent = count;  // Update the count in the cart display
-                    }
-                    
-                }
-            })
+        
+            fetch('/cart/count')
+            .then((response) => response.json())
+            .then((data) => {
+                const count = document.getElementsByClassName('cart-count');
+                console.log(data.count);
+            
+            for (let i = 0; i < count.length; i++){
+                count[i].textContent = data.count;
+            }
+            } )
+
             .catch(error => {
                 console.error('Error adding to cart:', error);
             });
+            updateCartTotal();
+
+           
         });
+        
+       
+
     
     </script>
 </body>

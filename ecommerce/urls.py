@@ -31,8 +31,7 @@ router.register(r'products', api_views.ProductViewSet)
 
 
 urlpatterns = [
-    
-    path('grappelli/', include('grappelli.urls')),
+
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('', views.index, name='index'),
@@ -41,6 +40,7 @@ urlpatterns = [
     path('product/<int:id>/', views.product_detail, name='product'),
     path('shop/', views.shop, name='shop'),
     path('customizer/<int:id>', customizer, name='customizer'),
+    path('checkout/', include('payments.urls')),
 ]
 
 
