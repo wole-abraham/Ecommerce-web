@@ -23,6 +23,7 @@ from products.views import customizer
 
 from django.urls import path, include
 from products import views
+from products.views import about, contact
 
 
 router = DefaultRouter()
@@ -41,6 +42,8 @@ urlpatterns = [
     path('shop/', views.shop, name='shop'),
     path('customizer/<int:id>', customizer, name='customizer'),
     path('checkout/', include('payments.urls')),
+    path('about/', about, name='about' ),
+    path('contact/', contact, name='contact' ),
 ]
 
 

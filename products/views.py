@@ -60,3 +60,9 @@ def customizer(request, id):
         product: retrieves a product from the database
     """
     return render(request, 'cart/customizer.html', context={'id':id})
+
+def about(request):
+    return render(request, 'about.html')
+
+def contact(request):
+    return render(request, 'contact.html')
