@@ -111,6 +111,9 @@
     justify-content: space-between;
     padding: 5px 0;
 }
+a i {
+    color: white;
+}
 
     </style>
 </head>
@@ -212,11 +215,12 @@
                                
                                 <a href="{% url 'shop' %}" class="primary-btn">Shop now </a>
                                 
-                                <div class="hero__social">
+                                <div class="hero__social" style="color: white;">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter"></i></a>
                                     <a href="#"><i class="fa fa-pinterest"></i></a>
                                     <a href="#"><i class="fa fa-instagram"></i></a>
+                                    <a href="#"><i class="fa fa-tiktok"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -229,7 +233,7 @@
                         <div class="col-xl-5 col-lg-7 col-md-8">
                             <div class="hero__text">
                                 <h6 style="color: antiquewhite;">Customizing</h6>
-                                <h2>GoShopping</h2>
+                                <h2 style="color: white;">GoShopping</h2>
                                 <p style="color: antiquewhite;">GoShopping</p>
                                 <a href="#" class="primary-btn">Shop now </a>
                                 <div class="hero__social">
@@ -277,6 +281,15 @@
                         <div class="product__item__text">
                             <h6>{{ product.name }}</h6>                 
                             <h5>${{ product.price }}</h5>
+
+                           
+                        </div>
+                        <div>
+                            <a href="https://wa.me/9613513971?text=https://woleabrahamthedev.pythonanywhere.com/product/{{product.id}}%0A Check out this product:https://woleabrahamthedev.pythonanywhere.com{{ product.image.url|urlencode }}" 
+   target="_blank" class="whatsapp-link">
+                                <i class="fa fa-whatsapp" style="color: green;"></i>
+                            </a>
+                            
                         </div>
                     </div>
                 </a>
@@ -488,13 +501,12 @@
     $(".hero__slider").owlCarousel({
         loop: true,
         margin: 10,
-        nav: true,
         items: 1,
         autoplay: true,
         autoplayTimeout: 5000,
         autoplayHoverPause: false,
         dots: true,
-        navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"]
+        
     });
 });
 
