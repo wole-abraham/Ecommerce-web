@@ -16,11 +16,11 @@ def shop(request):
     if request.method == 'POST':
         product = Product.objects.filter(name__icontains=request.POST['search'])
         categories = Category.objects.all()
-        return render(request, 'shop.html', context={'products': product, 'categories': categories})
+        return render(request, 'shop.html', context={'products': product, 'categories': categories, 'shop': 'shop'})
     
     product = Product.objects.all()
     categories = Category.objects.all()
-    return render(request, 'shop.html', context={'products': product, 'categories': categories})
+    return render(request, 'shop.html', context={'products': product, 'categories': categories, 'shop': 'shop'})
 
 def index(request):
     """

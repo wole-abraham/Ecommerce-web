@@ -179,10 +179,20 @@ a i {
                 <div class="col-lg-6 col-md-6">
                     <nav class="header__menu mobile-menu">
                         <ul>
+                            {% if shop %}
+                            <li ><a href="{% url 'index' %}">Home</a></li>
+                          
+                            <li class="active"><a href="{% url 'shop' %}">Shop</a></li>
+                            <li><a href="{% url 'about' %}">About</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                            {% else %}
+
                             <li class="active"><a href="{% url 'index' %}">Home</a></li>
+                          
                             <li><a href="{% url 'shop' %}">Shop</a></li>
                             <li><a href="{% url 'about' %}">About</a></li>
                             <li><a href="{% url 'contact' %}">Contact</a></li>
+                            {% endif %}
 
                         
                
@@ -234,7 +244,6 @@ a i {
                             <div class="hero__text">
                                 <h6 style="color: antiquewhite;">Customizing</h6>
                                 <h2 style="color: white;">GoShopping</h2>
-                                <p style="color: antiquewhite;">GoShopping</p>
                                 <a href="#" class="primary-btn">Shop now </a>
                                 <div class="hero__social">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
